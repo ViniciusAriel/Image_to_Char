@@ -13,15 +13,15 @@ int main(){
   }
   else{
       //Try later:
-      //char b[1024];
-      char b;
+      //char c[1024];
+      char c;
       while (true){
         //Checks End of File
         if(file.eof()){
           break;
         }
-        file >> b;
-        std::cout << b;
+        file >> c;
+        std::cout << c;
       }
   }
 
