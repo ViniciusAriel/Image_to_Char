@@ -12,6 +12,7 @@
 #include <string>             //std::string
 #include <limits>             //std::numeric_limits
 #include <cwctype>            //iswspace
+#include <bitset>             //std::bitset
 #include "image.h"            //Struct: Image
 #include "agglutinated_pixel.h"
 //------------------------------------------------------------------------------
@@ -66,6 +67,18 @@ FImage ReadImageSize(std::vector<char>& BufferData){
 
   return Image;
 }
+
+//Returns as vector in which each int in it the greyscore value of a pixel
+std::vector<int> CreatePixelBuffer(std::vector<char>& BufferData){
+  std::vector<int> PixelBuffer;
+  std::bitset<8> BinaryChar;
+  for(int i{0}; i < BufferData.size(); ++i){
+    BinaryChar = std::bitset<8>(BufferData[i]);
+    PixelBuffer.push_back((int)(BinaryChar.to_ulong()));
+  }
+
+  return PixelBuffer;
+}
 //------------------------------------------------------------------------------
 
 //Main Program
@@ -80,13 +93,30 @@ int main(){
 
   File.read(&BufferData[0], FileSize);
 
+  File.close();
+
   FImage Image{ReadImageSize(BufferData)};
 
   std::cout << Image.width << std::endl;
   std::cout << Image.height << std::endl;
 
-  File.close();
-  BufferData.clear();
+  //Test read bytes
+
+  /*
+  std::cout << BufferData[0] << std::endl;
+  std::cout << std::hex << BufferData[0] << std::endl;
+  std::cout << BufferData[1] << std::endl;
+  std::cout << std::hex << BufferData[1] << std::endl;
+
+
+  std::cout << BufferData[0] << std::endl;
+  std::cout << std::bitset<8>(BufferData[0]) << std::endl;
+
+  int integer{(int)(std::bitset<8>(BufferData[0]).to_ulong())};
+
+  std::cout << integer << std::endl;
+
+  BufferData.clear();*/
 
   return 0;
 }
@@ -95,5 +125,7 @@ int main(){
 //TODOS:
 //new FImage?
 //Should I really use Unreal naming conventions?
+//Delete FileSize if not used anymore!
 //Fix Error: not reading file header correctly [FIXED!]
-//Logic from getting pixels? Probablye new Class?
+//Reading as byte (going forward)
+//Logic from getting pixels? Probably new Class?
