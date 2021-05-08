@@ -70,7 +70,7 @@ FImage ReadImageSize(std::vector<char>& BufferData){
 //Main Program
 int main(){
 
-  std::fstream File ("capivara.pgm", std::ios_base::in /*| std::ios_base::binary*/);
+  std::fstream File ("capivara.pgm", std::ios_base::in | std::ios_base::binary);
 
   std::streamsize FileSize{GetFileSize(File)};
 
