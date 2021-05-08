@@ -21,7 +21,7 @@ std::streamsize GetFileSize(std::fstream& File){
   File.ignore(std::numeric_limits<std::streamsize>::max());
   //Counts charactes extracted until now
   std::streamsize FileSize{File.gcount()};
-  //Clear flags (like end of file, for example)
+  //Clear error flags (like end of file, for example)
   File.clear();
   //Sets the position of the next character to be extracted back to the
   //beginning
@@ -42,26 +42,22 @@ FImage ReadImageSize(std::vector<char>& BufferData){
 
     //Read magic number
     if(iswspace(BufferData[i]) && !bReadMagicNumber){
-      std::cout << "1: " << NumberString << std::endl;
       bReadMagicNumber = true;
       NumberString = "";
     }
     //Reads width
     else if(iswspace(BufferData[i]) && Image.width == 0){
-      std::cout << "2: " << NumberString << std::endl;
       Image.width = std::atoi(NumberString.c_str());
-      BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       NumberString = "";
     }
     //Reads height
     else if(iswspace(BufferData[i]) && Image.height == 0){
-      std::cout << "3: " << NumberString << std::endl;
       Image.height = std::atoi(NumberString.c_str());
-      BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       NumberString = "";
     }
+    //Ignores the highest value for each pixel
     else if(iswspace(BufferData[i])){
-      std::cout << "4: " << NumberString << std::endl;
+      //Erases read data from buffer so we don't have to store where we left off
       BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       break;
     }
@@ -97,4 +93,4 @@ int main(){
 
 //TODOS:
 //new FImage?
-//Fix Error: not reading file header correctly
+//Fix Error: not reading file header correctly [FIXED!]
