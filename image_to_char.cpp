@@ -41,26 +41,26 @@ FImage ReadImageSize(std::vector<char>& BufferData){
     NumberString.push_back(BufferData[i]);
 
     //Read magic number
-    if(BufferData[i] == '\n' && !bReadMagicNumber){
+    if(iswspace(BufferData[i]) && !bReadMagicNumber){
       std::cout << "1: " << NumberString << std::endl;
       bReadMagicNumber = true;
       NumberString = "";
     }
     //Reads width
-    else if(BufferData[i] == ' ' && Image.width == 0){
+    else if(iswspace(BufferData[i]) && Image.width == 0){
       std::cout << "2: " << NumberString << std::endl;
       Image.width = std::atoi(NumberString.c_str());
       BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       NumberString = "";
     }
     //Reads height
-    else if(BufferData[i] == '\n' && Image.height == 0){
+    else if(iswspace(BufferData[i]) && Image.height == 0){
       std::cout << "3: " << NumberString << std::endl;
       Image.height = std::atoi(NumberString.c_str());
       BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       NumberString = "";
     }
-    else if(BufferData[i] == '\n'){
+    else if(iswspace(BufferData[i])){
       std::cout << "4: " << NumberString << std::endl;
       BufferData.erase(BufferData.begin(), BufferData.begin() + i + 1);
       break;
