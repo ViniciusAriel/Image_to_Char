@@ -93,4 +93,6 @@ int main(){
 
 //TODOS:
 //new FImage?
+//Should I really use Unreal naming conventions?
 //Fix Error: not reading file header correctly [FIXED!]
+//Logic from getting pixels? Probablye new Class?
