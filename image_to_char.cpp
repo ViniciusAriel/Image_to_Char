@@ -11,8 +11,9 @@
 #include <vector>             //std::vector
 #include <string>             //std::string
 #include <limits>             //std::numeric_limits
-#include "image.h"            //Struct: Image
 #include <cwctype>            //iswspace
+#include "image.h"            //Struct: Image
+#include "agglutinated_pixel.h"
 //------------------------------------------------------------------------------
 
 //Functions
