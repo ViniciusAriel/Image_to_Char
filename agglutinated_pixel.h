@@ -11,11 +11,15 @@ public:
   ~AgglutinatedPixel();
 
   void AddPixel(int pixel);
+  void SetSideSize(int s);
+
   std::vector<int> GetPixels();
   int GetMeanPixelValue();
+  int GetSideSize();
 
 private:
   std::vector<int>* pixels;
+  int SideSize;
 };
 
 #endif
