@@ -79,10 +79,81 @@ std::vector<int> CreatePixelBuffer(std::vector<char>& BufferData){
 
   return PixelBuffer;
 }
+
+//Creates the Agglutinated Pixel Matrix that represents the image with correct
+//sizes
+std::vector<std::vector<AgglutinatedPixel>> CreateAgglutinatedPixelMatrix
+(int const& MAX_WIDTH, FImage& Image){
+  std::vector<std::vector<AgglutinatedPixel>> AglPixMatrix;
+
+  //Quantity of pixels a Agglutinated Pixel square contains in its side
+  int AglPixSideSize;
+  //When printing on the terminal, width is the limitating value
+  if(Image.width % MAX_WIDTH == 0){
+    AglPixSideSize = (int) (Image.width / MAX_WIDTH);
+  }
+  else{
+    AglPixSideSize = (int) ((Image.width / MAX_WIDTH) + 1);
+  }
+
+  //Quantity of Agglutinated Pixels to exist in a single row
+  int AglPixPerRow;
+  if(Image.width % AglPixSideSize == 0){
+    AglPixPerRow = (int) (Image.width / AglPixSideSize);
+  }
+  else{
+    AglPixPerRow = (int) ((Image.width / AglPixSideSize) + 1);
+  }
+
+  //Quantity of Agglutinated Pixels to exist in a single column
+  int AglPixPerCol;
+  if(Image.height & AglPixSideSize == 0){
+    AglPixPerCol = (int) (Image.height / AglPixSideSize);
+  }
+  else{
+    AglPixPerCol = (int) ((Image.height / AglPixSideSize) + 1);
+  }
+
+  AglPixMatrix.resize(AglPixPerCol);
+  for(int i{0}; i < AglPixMatrix.size(); ++i){
+    AglPixMatrix[i].resize(AglPixPerRow);
+
+    for(int j{0}; j < AglPixMatrix[i].size(); ++j){
+      AglPixMatrix[i][j].SetSideSize(AglPixSideSize);
+    }
+  }
+
+  return AglPixMatrix;
+}
+
+void PopulateAgglutinatedPixelMatrix
+(std::vector<std::vector<AgglutinatedPixel>>& AglPixMatrix,
+ std::vector<int>& PixelBuffer, FImage& Image){
+   int PixelGrayScale;
+   //Coordinates of the Agglutinated Pixel this Pixel will be in
+   int AglPixMatrixRow;
+   int AglPixMatrixCol;
+
+   for(int row{0}; row < Image.height; ++row){
+     for(int col{0}; col < Image.width; ++col){
+       PixelGrayScale = PixelBuffer[(row * Image.height) + col];
+
+       //Row
+       AglPixMatrixRow = (int) (row / AglPixMatrix[0][0].GetSideSize());
+
+       //Column
+       AglPixMatrixCol = (int) (col / AglPixMatrix[0][0].GetSideSize());
+
+       AglPixMatrix[AglPixMatrixRow][AglPixMatrixCol].AddPixel(PixelGrayScale);
+     }
+   }
+ }
 //------------------------------------------------------------------------------
 
 //Main Program
 int main(){
+
+  int const MAX_WIDTH{120};
 
   std::fstream File ("capivara.pgm", std::ios_base::in | std::ios_base::binary);
 
@@ -100,23 +171,16 @@ int main(){
   std::cout << Image.width << std::endl;
   std::cout << Image.height << std::endl;
 
-  //Test read bytes
+  std::vector<int> PixelBuffer{CreatePixelBuffer(BufferData)};
 
-  /*
-  std::cout << BufferData[0] << std::endl;
-  std::cout << std::hex << BufferData[0] << std::endl;
-  std::cout << BufferData[1] << std::endl;
-  std::cout << std::hex << BufferData[1] << std::endl;
+  std::vector<std::vector<AgglutinatedPixel>> AglPixMatrix
+  {CreateAgglutinatedPixelMatrix(MAX_WIDTH, Image)};
 
+  PopulateAgglutinatedPixelMatrix(AglPixMatrix, PixelBuffer, Image);
 
-  std::cout << BufferData[0] << std::endl;
-  std::cout << std::bitset<8>(BufferData[0]) << std::endl;
-
-  int integer{(int)(std::bitset<8>(BufferData[0]).to_ulong())};
-
-  std::cout << integer << std::endl;
-
-  BufferData.clear();*/
+  BufferData.clear();
+  PixelBuffer.clear();
+  AglPixMatrix.clear();
 
   return 0;
 }
@@ -126,6 +190,8 @@ int main(){
 //new FImage?
 //Should I really use Unreal naming conventions?
 //Delete FileSize if not used anymore!
+//Declare variables together?
 //Fix Error: not reading file header correctly [FIXED!]
-//Reading as byte (going forward)
-//Logic from getting pixels? Probably new Class?
+//Reading as byte [DONE]
+//Logic from getting pixels? Probably new Class? [DONE!]
+//Actually print image (so excited!)

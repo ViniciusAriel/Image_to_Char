@@ -2,6 +2,7 @@
 
 AgglutinatedPixel::AgglutinatedPixel(){
   pixels = new std::vector<int>();
+  SideSize = 0;
 }
 
 AgglutinatedPixel::~AgglutinatedPixel(){
@@ -10,6 +11,10 @@ AgglutinatedPixel::~AgglutinatedPixel(){
 
 void AgglutinatedPixel::AddPixel(int pixel){
   pixels->push_back(pixel);
+}
+
+void AgglutinatedPixel::SetSideSize(int s){
+  SideSize = s;
 }
 
 std::vector<int> AgglutinatedPixel::GetPixels(){
@@ -23,4 +28,8 @@ int AgglutinatedPixel::GetMeanPixelValue(){
   }
   mean /= pixels->size();
   return mean;
+}
+
+int AgglutinatedPixel::GetSideSize(){
+  return SideSize;
 }
