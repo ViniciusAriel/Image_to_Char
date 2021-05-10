@@ -5,16 +5,15 @@
 //------------------------------------------------------------------------------
 
 //Necessary Headers
-#include <fstream>            //std::fstream
-#include <iostream>           //std::cout, std::streamsize
-#include <cstddef>
-#include <vector>             //std::vector
-#include <string>             //std::string
-#include <limits>             //std::numeric_limits
-#include <cwctype>            //iswspace
-#include <bitset>             //std::bitset
-#include "image.h"            //Struct: Image
-#include "agglutinated_pixel.h"
+#include <fstream>              //std::fstream
+#include <iostream>             //std::cout, std::streamsize
+#include <vector>               //std::vector
+#include <string>               //std::string
+#include <limits>               //std::numeric_limits
+#include <cwctype>              //iswspace
+#include <bitset>               //std::bitset
+#include "image.h"              //Struct: Image
+#include "agglutinated_pixel.h" //Class: AgglutinatedPixel
 //------------------------------------------------------------------------------
 
 //Functions
@@ -136,7 +135,7 @@ void PopulateAgglutinatedPixelMatrix
 
    for(int row{0}; row < Image.height; ++row){
      for(int col{0}; col < Image.width; ++col){
-       PixelGrayScale = PixelBuffer[(row * Image.height) + col];
+       PixelGrayScale = PixelBuffer[(row * Image.width) + col];
 
        //Row
        AglPixMatrixRow = (int) (row / AglPixMatrix[0][0].GetSideSize());
@@ -148,14 +147,39 @@ void PopulateAgglutinatedPixelMatrix
      }
    }
  }
+
+ void ConvertImageToChar(std::vector<char>& ImageChar,
+ std::vector<std::vector<AgglutinatedPixel>>& AglPixMatrix){
+   float ScaleMapper{255.0 / 4.0};
+   std::fstream TextFile("Text.txt", std::ios_base::out);
+
+   for(int j{0}; j < AglPixMatrix.size(); ++j){
+     TextFile << '\n';
+     for(int i{0}; i < AglPixMatrix[j].size(); ++i){
+       if(AglPixMatrix[j][i].GetMeanPixelValue() < ScaleMapper){
+         TextFile << "█";
+       }
+       else if(AglPixMatrix[j][i].GetMeanPixelValue() < 2 * ScaleMapper){
+         TextFile << "▓";
+       }
+       else if(AglPixMatrix[j][i].GetMeanPixelValue() < 3 * ScaleMapper){
+         TextFile << "▒";
+       }
+       else if(AglPixMatrix[j][i].GetMeanPixelValue() < 4 * ScaleMapper){
+         TextFile << ' ';
+       }
+     }
+   }
+
+   TextFile.close();
+ }
 //------------------------------------------------------------------------------
 
 //Main Program
 int main(){
+  int const MAX_WIDTH{400};
 
-  int const MAX_WIDTH{120};
-
-  std::fstream File ("capivara.pgm", std::ios_base::in | std::ios_base::binary);
+  std::fstream File("capivara.pgm", std::ios_base::in | std::ios_base::binary);
 
   std::streamsize FileSize{GetFileSize(File)};
 
@@ -168,15 +192,16 @@ int main(){
 
   FImage Image{ReadImageSize(BufferData)};
 
-  std::cout << Image.width << std::endl;
-  std::cout << Image.height << std::endl;
-
   std::vector<int> PixelBuffer{CreatePixelBuffer(BufferData)};
 
   std::vector<std::vector<AgglutinatedPixel>> AglPixMatrix
   {CreateAgglutinatedPixelMatrix(MAX_WIDTH, Image)};
 
   PopulateAgglutinatedPixelMatrix(AglPixMatrix, PixelBuffer, Image);
+
+  //Representation of the image as a vector of char elements
+  std::vector<char> ImageChar;
+  ConvertImageToChar(ImageChar, AglPixMatrix);
 
   BufferData.clear();
   PixelBuffer.clear();
@@ -195,3 +220,4 @@ int main(){
 //Reading as byte [DONE]
 //Logic from getting pixels? Probably new Class? [DONE!]
 //Actually print image (so excited!)
+//Test pixel by pixel?
