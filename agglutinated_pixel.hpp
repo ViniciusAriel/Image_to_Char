@@ -4,22 +4,21 @@
 #include <vector>           //std::vector
 
 //Class represent a group os pixels of the image agglutinated together into a
-//square of 'side' pixels
+//square
 class AgglutinatedPixel{
 public:
   AgglutinatedPixel();
   ~AgglutinatedPixel();
 
-  void AddPixel(int pixel);
-  void SetSideSize(int s);
+  void AddGrayScaleValue(int pixel);
+  void SetSideSizeInPixels(int s);
 
-  std::vector<int> GetPixels();
-  int GetMeanPixelValue();
-  int GetSideSize();
+  int GetMeanGrayScaleValue();
+  int GetSideSizeInPixels();
 
 private:
-  std::vector<int>* pixels;
-  int SideSize;
+  std::vector<int>* pixel_grayscales;
+  int side_size_in_pixels;
 };
 
 #endif
