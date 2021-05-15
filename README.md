@@ -2,12 +2,12 @@
 
 ## What is this?
 
-This is a simple C++ program that reads an image file and "draws" it using ASCII characters.
+This simple program in C++ reads an image file and "draws" it using ASCII characters.
 
 ## How does it work?
 
 Nothing too fancy, actually. This program is only able to handle PGM file as of now (first version), it agglutinates together a square block of pixels and gets its mean value (gray scale). The size of the square block used can be changed altering the 'MAX_WIDTH' variable (more on that in the next section).
-Having the mean value of each group of pixels, we map it for 4 different Extended ASCII characters (█, ▓, ▒ or  ) and write it to a notepad.
+Having the mean value of each group of pixels, we map it for 4 different Extended ASCII characters (█, ▓, ▒ or <white_space> ) and write it to a notepad.
 
 ## How do I use it?
 
@@ -17,5 +17,9 @@ For running the program you will also need a C++ compiler. Compile both 'image_t
 Once the program finishes running, you should be able to find a 'Text.txt' file in the project directory. Open it (and possibly zoom out using 'ctrl -') to see the "image" generated.
 Note that you can also change the "resolution" of the drawing by changing the 'MAX_WIDTH' variable. A greater generates a better "resolution".
 
+## Current "Version"
+
+Disclaimer: Not even sure this small personal project should have versions, but as I intend to do some refactoring, bug corrections and genarally make it easier for any lost soul who happens to use this (maybe accepting decent image file types as .png or jpeg), I will grant myself the permission.
+In any case: v0.1
 
 Any doubts or suggestions? E-mail me: viniciusarielarruda@tutanota.com
