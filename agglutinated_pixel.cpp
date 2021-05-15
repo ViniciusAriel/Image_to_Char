@@ -1,4 +1,4 @@
-#include "agglutinated_pixel.h"
+#include "agglutinated_pixel.hpp"
 
 AgglutinatedPixel::AgglutinatedPixel(){
   pixels = new std::vector<int>();
