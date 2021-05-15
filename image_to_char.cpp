@@ -46,7 +46,7 @@ int main(){
 //TODOS:
 
 //Refactoring: Names. They are shitty. [DONE]
-//Refactoring: put function in other file
+//Refactoring: put functions in other files [DONE]
 //Refactoring: Tests. There are none as of now.
 //Refactoring: Behaviour changes (may do this before testing)
   //Starting with a class fot the algt_pix_matrix?
