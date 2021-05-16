@@ -12,15 +12,15 @@ Having the mean value of each group of pixels, we map it for 4 different Extende
 
 ## How do I use it?
 
-First, you will need a .pgm format of your image, which you can obtain using online conversion tools (just type 'png to pgm on DuckDuckGo' and you should be able to find it). Put the .pgm file in the project directory.
+First, you will need a .pgm format of your image, which you can obtain using online conversion tools (just type 'png to pgm on DuckDuckGo' and you should be able to find it). Put the .pgm file in the 'src' folder.
 
-Next, into the 'image_to_char.cpp' file, change the 'capivara.pgm' string to the name of your .pgm or file, or, alternatively, keep it to run the example of the capybara, already in the repository, along with its original .png file so you can easily visualize it.
+Next, into the 'image_to_char.cpp' file (inside 'src'), change the 'capivara.pgm' string to the name of your .pgm or file, or, alternatively, keep it to run the example of the capybara, already in the folder, along with its original .png file so you can easily visualize it.
 
-For running the program you will also need a C++ compiler. Compile all .cpp files and run the executable generated.
+For running the program you will also need a C++ compiler. Compile all .cpp files in 'src' folder and run the executable generated.
 
 Once the program finishes running, you should be able to find a 'Text.txt' file in the project directory. Open it (and possibly zoom out using 'ctrl -') to see the "image" generated.
 
-Note that you can also change the "resolution" of the drawing by changing the 'MAX_WIDTH' variable. A greater generates a better "resolution".
+Note that you can also change the "resolution" of the drawing by changing the 'MAX_WIDTH' variable. A greater value generates a better "resolution".
 
 ## Current "Version"
 
