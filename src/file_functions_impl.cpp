@@ -14,6 +14,14 @@ std::streamsize GetFileSize(std::fstream& file){
   return file_size;
 }
 
+std::vector<char> ReadFileData(std::fstream& file, std::streamsize file_size){
+  std::vector<char> file_data;
+
+  file_data.resize(file_size);
+  file.read(&file_data[0], file_size);
+  file.close();
+}
+
 std::string ReadWordFromData(std::vector<char>& file_data){
   std::string word;
   for(int i{0}; i < file_data.size(); ++i){

@@ -8,3 +8,5 @@
 std::streamsize GetFileSize(std::fstream& file);
 
 ImageSize GetImageSize(std::vector<char>& file_data);
+
+std::vector<char> ReadFileData(std::fstream& file, std::streamsize file_size);
