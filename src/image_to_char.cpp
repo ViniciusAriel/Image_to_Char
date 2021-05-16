@@ -17,11 +17,7 @@ int main(){
 
   std::streamsize file_size{GetFileSize(image_file)};
 
-  std::vector<char> file_data;
-  file_data.resize(file_size);
-
-  image_file.read(&file_data[0], file_size);
-  image_file.close();
+  std::vector<char> file_data{ReadFileData(image_file, file_size)};
 
   ImageSize image_size{GetImageSize(file_data)};
 
@@ -32,8 +28,7 @@ int main(){
 
   PopulateAgglutinatedPixelMatrix(agglutinated_pixel_matrix, pixel_grayscales, image_size);
 
-  std::vector<char> image_represented_in_char;
-  DrawImageInTextFile(image_represented_in_char, agglutinated_pixel_matrix);
+  DrawImageInTextFile(agglutinated_pixel_matrix);
 
   file_data.clear();
   pixel_grayscales.clear();
