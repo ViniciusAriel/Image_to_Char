@@ -8,6 +8,7 @@
 #include "data_treat_functions.hpp"   //GetPixelGrayscales, CreateAgglutinatedPixelMatrix,
                                       //PopulateAgglutinatedPixelMatrix
 #include "drawing_function.hpp"       //DrawImageInTextFile
+#include <iostream>
 //------------------------------------------------------------------------------
 
 int main(){

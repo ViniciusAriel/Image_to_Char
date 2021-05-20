@@ -1,4 +1,5 @@
 #include "file_functions.hpp"
+#include <iostream>
 
 std::streamsize GetFileSize(std::fstream& file){
   //Extracts (and ignores) all characters until end or file or reach max stream
@@ -20,10 +21,13 @@ std::vector<char> ReadFileData(std::fstream& file, std::streamsize file_size){
   file_data.resize(file_size);
   file.read(&file_data[0], file_size);
   file.close();
+
+  return file_data;
 }
 
 std::string ReadWordFromData(std::vector<char>& file_data){
   std::string word;
+
   for(int i{0}; i < file_data.size(); ++i){
     word.push_back(file_data[i]);
 
