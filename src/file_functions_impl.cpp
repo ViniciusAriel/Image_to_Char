@@ -1,5 +1,4 @@
 #include "file_functions.hpp"
-#include <iostream>
 
 std::streamsize GetFileSize(std::fstream& file){
   //Extracts (and ignores) all characters until end or file or reach max stream
@@ -36,10 +35,10 @@ std::string ReadWordFromData(std::vector<char>& file_data){
       return word;
     }
   }
+  return NULL;
 }
 
 ImageSize GetImageSize(std::vector<char>& file_data){
-  bool magic_number_read{false};
   std::string number_string;
 
   ImageSize image_size;

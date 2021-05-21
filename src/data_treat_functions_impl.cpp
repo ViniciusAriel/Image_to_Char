@@ -35,7 +35,7 @@ std::vector<std::vector<AgglutinatedPixel>> CreateAgglutinatedPixelMatrix
 
   //Quantity of Agglutinated Pixels to exist in a single column
   int aglt_pixels_per_col;
-  if(image_size.height & side_size_in_pixels == 0){
+  if(image_size.height && side_size_in_pixels == 0){
     aglt_pixels_per_col = (int) (image_size.height / side_size_in_pixels);
   }
   else{
