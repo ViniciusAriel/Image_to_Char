@@ -11,36 +11,30 @@ std::vector<int> GetPixelGrayscales(std::vector<char>& file_data){
   return pixel_grayscales;
 }
 
+// Calculate how many sized elements fit into an extent, rounding up
+int CalculateElementsPerExtent(int extent_size, int element_size){
+  int number_of_elements;
+  if(extent_size % element_size == 0){
+    number_of_elements = (int) (extent_size / element_size);
+  }
+  else{
+    number_of_elements = (int) ((extent_size / element_size) + 1);
+  }
+
+  return number_of_elements;
+}
+
 std::vector<std::vector<AgglutinatedPixel>> CreateAgglutinatedPixelMatrix
 (int const& MAX_WIDTH, ImageSize& image_size){
 
-  //Quantity of pixels a Agglutinated Pixel square contains in its side
-  int side_size_in_pixels;
-  //When printing on the terminal, width is the limitating value
-  if(image_size.width % MAX_WIDTH == 0){
-    side_size_in_pixels = (int) (image_size.width / MAX_WIDTH);
-  }
-  else{
-    side_size_in_pixels = (int) ((image_size.width / MAX_WIDTH) + 1);
-  }
+  // Quantity of pixels a Agglutinated Pixel square contains in its side
+  int side_size_in_pixels{CalculateElementsPerExtent(image_size.width, MAX_WIDTH)};
 
-  //Quantity of Agglutinated Pixels to exist in a single row
-  int aglt_pixels_per_row;
-  if(image_size.width % side_size_in_pixels == 0){
-    aglt_pixels_per_row = (int) (image_size.width / side_size_in_pixels);
-  }
-  else{
-    aglt_pixels_per_row = (int) ((image_size.width / side_size_in_pixels) + 1);
-  }
+  // Quantity of Agglutinated Pixels to exist in a single row
+  int aglt_pixels_per_row{CalculateElementsPerExtent(image_size.width, side_size_in_pixels)};
 
-  //Quantity of Agglutinated Pixels to exist in a single column
-  int aglt_pixels_per_col;
-  if(image_size.height && side_size_in_pixels == 0){
-    aglt_pixels_per_col = (int) (image_size.height / side_size_in_pixels);
-  }
-  else{
-    aglt_pixels_per_col = (int) ((image_size.height / side_size_in_pixels) + 1);
-  }
+  // Quantity of Agglutinated Pixels to exist in a single column
+  int aglt_pixels_per_col{CalculateElementsPerExtent(image_size.height, side_size_in_pixels)};
 
   std::vector<std::vector<AgglutinatedPixel>> aglt_pixel_matrix;
 
