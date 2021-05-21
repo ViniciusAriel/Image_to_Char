@@ -7,8 +7,7 @@
 #include "file_functions.hpp"         //GetFileSize, GetImageSize
 #include "data_treat_functions.hpp"   //GetPixelGrayscales, CreateAgglutinatedPixelMatrix,
                                       //PopulateAgglutinatedPixelMatrix
-#include "drawing_function.hpp"       //DrawImageInTextFile
-#include <iostream>
+#include "drawing_functions.hpp"       //DrawImageInTextFile
 //------------------------------------------------------------------------------
 
 int main(){
@@ -29,11 +28,14 @@ int main(){
 
   PopulateAgglutinatedPixelMatrix(agglutinated_pixel_matrix, pixel_grayscales, image_size);
 
-  DrawImageInTextFile(agglutinated_pixel_matrix);
+  std::vector<std::string> agglutinated_pixels_as_char{MapPixelToChar()};
+
+  DrawImageInTextFile(agglutinated_pixel_matrix, agglutinated_pixels_as_char);
 
   file_data.clear();
   pixel_grayscales.clear();
   agglutinated_pixel_matrix.clear();
+  agglutinated_pixels_as_char.clear();
 
   return 0;
 }
