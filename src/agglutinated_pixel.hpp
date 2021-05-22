@@ -11,14 +11,11 @@ public:
   ~AgglutinatedPixel();
 
   void AddGrayScaleValue(int pixel);
-  void SetSideSizeInPixels(int s);
 
-  int GetMeanGrayScaleValue();
-  int GetSideSizeInPixels();
+  int GetMeanGrayscaleValue();
 
 private:
   std::vector<int>* pixel_grayscales;
-  int side_size_in_pixels;
 };
 
 #endif

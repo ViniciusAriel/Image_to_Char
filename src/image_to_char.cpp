@@ -4,10 +4,10 @@
 */
 //------------------------------------------------------------------------------
 
-#include "file_functions.hpp"         //GetFileSize, GetImageSize
-#include "data_treat_functions.hpp"   //GetPixelGrayscales, CreateAgglutinatedPixelMatrix,
-                                      //PopulateAgglutinatedPixelMatrix
-#include "drawing_functions.hpp"       //DrawImageInTextFile
+#include "file_functions.hpp"         // GetFileSize, GetImageSize
+#include "data_treat_functions.hpp"   // GetPixelGrayscales, CreateAgglutinatedPixelMatrix,
+                                      // PopulateAgglutinatedPixelMatrix
+#include "drawing_functions.hpp"      // DrawImageInTextFile
 //------------------------------------------------------------------------------
 
 int main(){
@@ -23,18 +23,18 @@ int main(){
 
   std::vector<int> pixel_grayscales{GetPixelGrayscales(file_data)};
 
-  std::vector<std::vector<AgglutinatedPixel>> agglutinated_pixel_matrix
-  {CreateAgglutinatedPixelMatrix(MAX_WIDTH, image_size)};
+  AgglutinatedImage agglutinated_image{CreateAgglutinatedImage(MAX_WIDTH, image_size)};
 
-  PopulateAgglutinatedPixelMatrix(agglutinated_pixel_matrix, pixel_grayscales, image_size);
+  agglutinated_image.PopulateAgglutinatedImage(pixel_grayscales, image_size);
 
   std::vector<std::string> agglutinated_pixels_as_char{MapPixelToChar()};
 
-  DrawImageInTextFile(agglutinated_pixel_matrix, agglutinated_pixels_as_char);
+  DrawImageInTextFile(agglutinated_image, agglutinated_pixels_as_char);
+
+  DrawImageInTextFile(agglutinated_image, agglutinated_pixels_as_char);
 
   file_data.clear();
   pixel_grayscales.clear();
-  agglutinated_pixel_matrix.clear();
   agglutinated_pixels_as_char.clear();
 
   return 0;
