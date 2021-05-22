@@ -24,7 +24,7 @@ int CalculateElementsPerExtent(int extent_size, int element_size){
   return number_of_elements;
 }
 
-std::vector<std::vector<AgglutinatedPixel>> CreateAgglutinatedPixelMatrix
+AgglutinatedImage CreateAgglutinatedImage
 (int const& MAX_WIDTH, ImageSize& image_size){
 
   // Quantity of pixels a Agglutinated Pixel square contains in its side
@@ -36,40 +36,7 @@ std::vector<std::vector<AgglutinatedPixel>> CreateAgglutinatedPixelMatrix
   // Quantity of Agglutinated Pixels to exist in a single column
   int aglt_pixels_per_col{CalculateElementsPerExtent(image_size.height, side_size_in_pixels)};
 
-  std::vector<std::vector<AgglutinatedPixel>> aglt_pixel_matrix;
+  AgglutinatedImage aglt_image(side_size_in_pixels, aglt_pixels_per_row, aglt_pixels_per_col);
 
-  aglt_pixel_matrix.resize(aglt_pixels_per_col);
-  for(int i{0}; i < aglt_pixel_matrix.size(); ++i){
-    aglt_pixel_matrix[i].resize(aglt_pixels_per_row);
-
-    for(int j{0}; j < aglt_pixel_matrix[i].size(); ++j){
-      aglt_pixel_matrix[i][j].SetSideSizeInPixels(side_size_in_pixels);
-    }
-  }
-
-  return aglt_pixel_matrix;
+  return aglt_image;
 }
-
-void PopulateAgglutinatedPixelMatrix
-(std::vector<std::vector<AgglutinatedPixel>>& agglutinated_pixel_matrix,
- std::vector<int>& pixel_grayscales, ImageSize& image_size){
-
-   int PixelGrayScale;
-   //Coordinates of the Agglutinated Pixel this Pixel will be in
-   int agglutinated_pixel_matrixRow;
-   int agglutinated_pixel_matrixCol;
-
-   for(int row{0}; row < image_size.height; ++row){
-     for(int col{0}; col < image_size.width; ++col){
-       PixelGrayScale = pixel_grayscales[(row * image_size.width) + col];
-
-       //Row
-       agglutinated_pixel_matrixRow = (int) (row / agglutinated_pixel_matrix[0][0].GetSideSizeInPixels());
-
-       //Column
-       agglutinated_pixel_matrixCol = (int) (col / agglutinated_pixel_matrix[0][0].GetSideSizeInPixels());
-
-       agglutinated_pixel_matrix[agglutinated_pixel_matrixRow][agglutinated_pixel_matrixCol].AddGrayScaleValue(PixelGrayScale);
-     }
-   }
- }
