@@ -8,7 +8,7 @@ AgglutinatedPixel::~AgglutinatedPixel(){
   delete pixel_grayscales;
 }
 
-void AgglutinatedPixel::AddGrayScaleValue(int grayscale_value){
+void AgglutinatedPixel::AddGrayscaleValue(int grayscale_value){
   pixel_grayscales->push_back(grayscale_value);
 }
 

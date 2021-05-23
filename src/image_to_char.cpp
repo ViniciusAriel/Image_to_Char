@@ -1,5 +1,5 @@
 /*
-  This program implements a conversion from a .pgm image file to a terminal
+  This program implements a conversion from a .pgm image file to a .txt file
   representation of the image using ASCII characters.
 */
 //------------------------------------------------------------------------------
@@ -11,7 +11,7 @@
 //------------------------------------------------------------------------------
 
 int main(){
-  int const MAX_WIDTH{400}; //This should be an user input
+  int const MAX_WIDTH{400}; // This should be an user input
 
   std::fstream image_file("capivara.pgm", std::ios_base::in | std::ios_base::binary);
 
@@ -27,15 +27,13 @@ int main(){
 
   agglutinated_image.PopulateAgglutinatedImage(pixel_grayscales, image_size);
 
-  std::vector<std::string> agglutinated_pixels_as_char{MapPixelToChar()};
+  std::vector<std::string> chars_to_use{DefineTextFileChars()};
 
-  DrawImageInTextFile(agglutinated_image, agglutinated_pixels_as_char);
-
-  DrawImageInTextFile(agglutinated_image, agglutinated_pixels_as_char);
+  DrawImageInTextFile(agglutinated_image, chars_to_use);
 
   file_data.clear();
   pixel_grayscales.clear();
-  agglutinated_pixels_as_char.clear();
+  chars_to_use.clear();
 
   return 0;
 }
