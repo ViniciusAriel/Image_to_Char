@@ -6,9 +6,7 @@
 
 std::vector<int> GetPixelGrayscales(std::vector<char>& file_data);
 
+int CalculateElementsPerExtent(int extent_size, int element_size);
+
 AgglutinatedImage CreateAgglutinatedImage
 (int const& MAX_WIDTH, ImageSize& image_size);
-
-void PopulateAgglutinatedPixelMatrix
-(std::vector<std::vector<AgglutinatedPixel>>& agglutinated_pixel_matrix,
- std::vector<int>& pixel_grayscales, ImageSize& image_size);

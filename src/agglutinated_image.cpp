@@ -1,6 +1,7 @@
 #include "agglutinated_image.hpp"
 
-AgglutinatedImage::AgglutinatedImage(int aglt_pixel_side_size, int aglt_pixels_per_row, int aglt_pixels_per_col){
+AgglutinatedImage::AgglutinatedImage(int aglt_pixel_side_size, int aglt_pixels_per_row,
+int aglt_pixels_per_col){
   this->aglt_pixel_side_size = aglt_pixel_side_size;
   this->aglt_pixels_per_row = aglt_pixels_per_row;
   this->aglt_pixels_per_col = aglt_pixels_per_col;
@@ -25,9 +26,10 @@ int AgglutinatedImage::GetAgglutinatedPixelsPerCol(){
   return aglt_pixels_per_col;
 }
 
-void AgglutinatedImage::PopulateAgglutinatedImage(std::vector<int>& pixel_grayscales, ImageSize& image_size){
+void AgglutinatedImage::PopulateAgglutinatedImage(std::vector<int>& pixel_grayscales,
+ImageSize& image_size){
   int pixel_grayscale;
-  //Coordinates of the Agglutinated Pixel this Pixel will be in
+  // Coordinates of the Agglutinated Pixel this Pixel will be in
   int aglt_image_row;
   int aglt_image_col;
 
@@ -41,7 +43,7 @@ void AgglutinatedImage::PopulateAgglutinatedImage(std::vector<int>& pixel_graysc
       //Column
       aglt_image_col = (int) (col / aglt_pixel_side_size);
 
-      aglt_pixel_matrix->at(aglt_image_row)[aglt_image_col].AddGrayScaleValue(pixel_grayscale);
+      aglt_pixel_matrix->at(aglt_image_row)[aglt_image_col].AddGrayscaleValue(pixel_grayscale);
     }
   }
 }

@@ -1,18 +1,18 @@
 #include "drawing_functions.hpp"
 #include <iostream>
-std::vector<std::string> MapPixelToChar(){
-  std::vector<std::string> pixels_as_char;
+std::vector<std::string> DefineTextFileChars(){
+  std::vector<std::string> chars;
 
-  pixels_as_char.push_back("█");
-  pixels_as_char.push_back("▓");
-  pixels_as_char.push_back("▒");
-  pixels_as_char.push_back(" ");
+  chars.push_back("█");
+  chars.push_back("▓");
+  chars.push_back("▒");
+  chars.push_back(" ");
 
-  return pixels_as_char;
+  return chars;
 }
 
 void DrawImageInTextFile(AgglutinatedImage& aglt_image,
-std::vector<std::string> pixels_as_char){
+std::vector<std::string> chars){
 
    float threshold_value{255.0 / 4.0};
    std::fstream text_file("Text.txt", std::ios_base::out);
@@ -21,7 +21,7 @@ std::vector<std::string> pixels_as_char){
      text_file << '\n';
      for(int i{0}; i < aglt_image.GetAgglutinatedPixelsPerRow(); ++i){
 
-       text_file << pixels_as_char[(int)(aglt_image.GetAgglutinatedPixelsMeanGrayscaleValue(j, i) / threshold_value)];
+       text_file << chars[(int)(aglt_image.GetAgglutinatedPixelsMeanGrayscaleValue(j, i) / threshold_value)];
      }
    }
 

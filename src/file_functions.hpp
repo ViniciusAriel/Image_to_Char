@@ -1,9 +1,9 @@
-#include <fstream>              //std::fstream, std::streamsize
-#include <vector>               //std::vector
-#include <string>               //std::string
-#include <cwctype>              //iswspace
-#include <limits>               //std::numeric_limits
-#include "image_size.hpp"       //Struct: ImageSize
+#include <fstream>              // std::fstream, std::streamsize
+#include <vector>               // std::vector
+#include <string>               // std::string
+#include <cwctype>              // iswspace
+#include <limits>               // std::numeric_limits
+#include "image_size.hpp"       // Struct: ImageSize
 
 std::streamsize GetFileSize(std::fstream& file);
 
